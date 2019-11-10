@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ChargerFeedback"></activity>
         <activity
             android:name=".CrowdInfoActivity"
             android:parentActivityName=".MapsActivity">
@@ -46,24 +47,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
-        </activity>
+            android:excludeFromRecents="true"
+            android:label="@string/title_activity_maps"></activity>
 
         <receiver android:name=".BatteryLevelReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BATTERY_LOW"/>
+                <action android:name="android.intent.action.BATTERY_LOW" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".BatteryOkayReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BATTERY_OKAY" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

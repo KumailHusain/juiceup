@@ -3,6 +3,7 @@ package com.example.juiceup;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,15 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         createNotificationChannel(context);
+
+        Intent notifyIntent = new Intent(context, MapsActivity.class);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+// Create the PendingIntent
+        PendingIntent notifyPendingIntent = PendingIntent.getActivity(
+                context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+        builder.setContentIntent(notifyPendingIntent);
 // notificationId is a unique int for each notification that you must define
         notificationManager.notify(1, builder.build());
     }

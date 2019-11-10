@@ -1,5 +1,6 @@
 package com.example.juiceup;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -23,10 +24,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,12 +40,18 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -53,17 +63,75 @@ import java.util.Map;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
+    List<Marker> markerList = new ArrayList<Marker>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), getString(R.string.api_key), Locale.CANADA);
+        }
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                removeAllMarkers();
 
+
+                LatLng coords = place.getLatLng();
+                if (coords == null) {
+
+                    RequestClass.resolveLatLon(getApplicationContext(), place.getId(), new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject obj = new JSONObject(response);
+                                JSONObject result = obj.getJSONObject("result");
+                                JSONObject geometry = result.getJSONObject("geometry");
+                                JSONObject location = geometry.getJSONObject("location");
+                                LatLng loc = new LatLng(location.getDouble("lat"), location.getDouble("lng"));
+                                requestChargingPoints(loc);
+                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 17));
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), "Failed to resolve coordinates", Toast.LENGTH_SHORT);
+                        }
+                    });
+                } else {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(coords, 17));
+                    requestChargingPoints(coords);
+                }
+
+            }
+
+            @Override
+            public void onError(@NonNull Status status) {
+
+            }
+        });
+
+
+    }
+
+    void removeAllMarkers() {
+        for (Marker marker : markerList) {
+            marker.remove();
+        }
+        markerList = new ArrayList<Marker>();
     }
 
     void requestChargingPoints(LatLng myLocation) {
@@ -193,8 +261,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // This is an S
 
         }
-        mMap.addMarker(options)
-                .setTag(data);
+        Marker marker = mMap.addMarker(options);
+        marker.setTag(data);
+        markerList.add(marker);
     }
 
     @Override

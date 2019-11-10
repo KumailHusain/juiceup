@@ -42,6 +42,21 @@ public class RequestClass {
         requestQueue.add(request);
     }
 
+
+    public static void resolveLatLon(Context context, String placeID, Response.Listener success, Response.ErrorListener error) {
+        requestQueue = Volley.newRequestQueue(context);
+        String url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" +
+                placeID +
+                "&key=" +
+                "AIzaSyAlyemkP0ByIOkxlAW7KFIlj7wD8BYHQ_o";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url, success, error);
+        request.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        requestQueue.add(request);
+    }
+
+
+
     public static void findNearbyPlace(Context context, LatLng latLng, Response.Listener success, Response.ErrorListener error) {
         requestQueue = Volley.newRequestQueue(context);
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +

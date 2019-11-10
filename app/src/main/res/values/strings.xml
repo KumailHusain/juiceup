@@ -3,4 +3,5 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_crowd_info">CrowdInfoActivity</string>
     <string name="action_settings">Settings</string>
+    <string name="api_key">AIzaSyAlyemkP0ByIOkxlAW7KFIlj7wD8BYHQ_o</string>
 </resources>
