@@ -31,11 +31,13 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
         createNotificationChannel(context);
 
         Intent notifyIntent = new Intent(context, MapsActivity.class);
+        notifyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        notifyIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 // Create the PendingIntent
         PendingIntent notifyPendingIntent = PendingIntent.getActivity(
-                context, 0, notifyIntent, PendingIntent.FLAG_CANCEL_CURRENT
+                context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
         );
         builder.setContentIntent(notifyPendingIntent);
 // notificationId is a unique int for each notification that you must define
