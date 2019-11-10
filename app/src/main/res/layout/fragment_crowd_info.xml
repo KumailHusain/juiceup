@@ -24,10 +24,9 @@
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/crowd_info_crowdchart"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            />
+            android:layout_width="323dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 

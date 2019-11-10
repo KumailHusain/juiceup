@@ -1,6 +1,5 @@
 package com.example.juiceup;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -11,9 +10,7 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
-
-public class BatteryLevelReceiver extends BroadcastReceiver {
+public class BatteryOkayReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -23,8 +20,8 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
     void sendNotification(Context context) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "All")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Juice up your phone!")
-                .setContentText("Find power outlets near you")
+                .setContentTitle("Share the Juice!")
+                .setContentText("Mark this charging spot so others can find it")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         createNotificationChannel(context);

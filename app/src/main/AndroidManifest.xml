@@ -55,6 +55,12 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".BatteryOkayReceiver">
+            <intent-filter>
+                <action android:name="ndroid.intent.action.BATTERY_OKAY" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
