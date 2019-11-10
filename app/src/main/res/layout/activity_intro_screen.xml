@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IntroScreen"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="30dp"
+            app:srcCompat="@drawable/logo"
+            tools:layout_editor_absoluteX="-60dp"
+            tools:layout_editor_absoluteY="18dp" />
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/allerta"
+            android:text="Juice Up!"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="131dp"
+            tools:layout_editor_absoluteY="251dp" />
+
+        <TextView
+            android:layout_margin="40dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/textView2"
+            android:layout_width="315dp"
+            android:layout_height="89dp"
+            android:text="Hi there! Are you ready to never panic about hanging onto that last percent of juice left in your phone and never run out of study spots that suit your needs exactly? "
+            android:textAlignment="center"
+            tools:layout_editor_absoluteX="48dp"
+            tools:layout_editor_absoluteY="365dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="#FFFFFF"
+            android:text="Get Started"
+            android:textColor="#3F51B5"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="595dp" />
+    </LinearLayout>
+
+</LinearLayout>

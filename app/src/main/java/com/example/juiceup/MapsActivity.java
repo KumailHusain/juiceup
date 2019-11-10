@@ -179,6 +179,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void placeMarker(LatLng coordinates, JSONObject data) {
         MarkerOptions options = new MarkerOptions().position(coordinates);
         if (data.has("lock")) {
+            // This is a C
             try {
                 String title = data.getString("add");
                 if (data.getInt("lock") == 1) {
@@ -188,6 +189,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        } else {
+            // This is an S
+
         }
         mMap.addMarker(options)
                 .setTag(data);
