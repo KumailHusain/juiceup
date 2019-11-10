@@ -35,7 +35,7 @@ public class BatteryOkayReceiver extends BroadcastReceiver {
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 // Create the PendingIntent
         PendingIntent notifyPendingIntent = PendingIntent.getActivity(
-                context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+                context, 0, notifyIntent, PendingIntent.FLAG_CANCEL_CURRENT
         );
         builder.setContentIntent(notifyPendingIntent);
         createNotificationChannel(context);
