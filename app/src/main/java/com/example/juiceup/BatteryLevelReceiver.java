@@ -30,15 +30,16 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         createNotificationChannel(context);
 
-        Intent notifyIntent = new Intent(context, MapsActivity.class);
+        Intent notifyIntent = new Intent(context.getApplicationContext(), MapsActivity.class);
         notifyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         notifyIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 // Create the PendingIntent
         PendingIntent notifyPendingIntent = PendingIntent.getActivity(
-                context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+                context.getApplicationContext(), 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
         );
+//        builder.int
         builder.setContentIntent(notifyPendingIntent);
 // notificationId is a unique int for each notification that you must define
         notificationManager.notify(1, builder.build());
@@ -59,4 +60,5 @@ public class BatteryLevelReceiver extends BroadcastReceiver {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
 }

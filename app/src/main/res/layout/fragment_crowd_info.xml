@@ -28,6 +28,12 @@
             android:layout_height="160dp"
             android:layout_gravity="center_horizontal" />
 
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/crowd_info_noisechart"
+            android:layout_width="323dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

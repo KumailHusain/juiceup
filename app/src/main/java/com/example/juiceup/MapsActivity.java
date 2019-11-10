@@ -257,13 +257,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            Marker marker = mMap.addMarker(options.icon(BitmapDescriptorFactory.fromResource(R.drawable.lightning)));
+            marker.setTag(data);
+            markerList.add(marker);
         } else {
             // This is an S
-
+            Marker marker = mMap.addMarker(options.icon(BitmapDescriptorFactory.fromResource(R.drawable.book4)));
+            marker.setTag(data);
+            markerList.add(marker);
         }
-        Marker marker = mMap.addMarker(options);
-        marker.setTag(data);
-        markerList.add(marker);
+
     }
 
     @Override
